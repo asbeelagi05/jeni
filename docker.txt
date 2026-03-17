@@ -1,0 +1,181 @@
+================================================================
+        DevOps Lab - All Programs (20CI77)
+        Dept. of CSE (AI & ML), VVCE
+================================================================
+
+================================================================
+PROGRAM 1 - Git Basic Commands
+================================================================
+
+# 1. Configure Git
+git config --global user.name "YourName"
+git config --global user.email "yourmail@gmail.com"
+git config --list
+
+# 2. Create project folder
+mkdir myproject
+cd myproject
+
+# 3. Initialize repo
+git init
+
+# 4. Check status
+git status
+
+# 5. Create a file
+touch index.txt
+echo "Hello World" > index.txt
+
+# 6. Check status (untracked)
+git status
+
+# 7. Add to staging
+git add index.txt
+git add .
+
+# 8. Check status (staged)
+git status
+
+# 9. Commit
+git commit -m "First commit"
+
+# 10. View history
+git log
+
+# 11. Connect to GitHub
+git remote add origin https://github.com/yourusername/myproject.git
+  
+git push -u origin master
+
+# 12. Clone repo
+git clone https://github.com/yourusername/myproject.git
+
+# 13. Reset
+git reset --hard
+
+================================================================
+PROGRAM 2 - Branch, Merge, Merge Conflict
+================================================================
+
+# 1. Setup
+mkdir lab2
+cd lab2
+git init
+
+# 2. Initial commit on master
+echo "version 1" > file.txt
+git add .
+git commit -m "initial commit"
+
+# 3. Create feature branch and make change
+git checkout -b feature
+echo "feature version" > file1.txt
+git add .
+git commit -m "change in feature"
+
+# 4. Switch to master and make change on same file
+git checkout master
+echo "main version" > file1.txt
+git add .
+git commit -m "change in main"
+
+# 5. Merge - conflict will appear
+git merge feature
+
+# 6. See conflict
+cat file1.txt
+
+# 7. Resolve conflict
+echo "hello from main and feature branch" > file1.txt
+git add .
+git commit -m "resolve merge"
+
+# 8. View log
+git log
+
+# 9. See diff between branches
+git diff master feature
+
+----------------------------------------------------------------
+GitHub Concepts (do on GitHub website):
+- Fork        : Click Fork button on any repo
+- Branch      : git checkout -b branchname
+- Pull Request: GitHub > Compare & Pull Request > Create PR
+- Diff        : git diff master feature
+- Merge       : git merge feature
+----------------------------------------------------------------
+
+================================================================
+PROGRAM 3 - Jenkins CI/CD Pipeline
+================================================================
+
+# 1. Install Java
+sudo apt install openjdk-21-jre-headless
+# (password: student)
+
+# 2. Verify Java
+java -version
+
+# 3. Download Jenkins
+wget https://get.jenkins.io/war-stable/latest/jenkins.war
+
+# 4. Verify download
+ls
+
+# 5. Run Jenkins
+java -jar jenkins.war --httpPort=8082
+
+# Open browser: http://localhost:8085
+
+# 6. Install ngrok
+sudo apt update
+sudo apt install snapd -y
+tt
+ngrok http 8082
+
+----------------------------------------------------------------
+Jenkins Pipeline Script (paste in Jenkins UI):
+----------------------------------------------------------------
+pipeline {
+    agent any
+
+    stages {
+
+        stage('Clone Repository') {
+            steps {
+                git branch: 'main',
+                    url: 'https://github.com/asbeelagi05/jenki.git'
+            }
+        }
+
+        stage('Run Script') {
+            steps {
+                sh 'chmod +x script.sh'
+                sh './script.sh'
+            }
+        }
+
+    }
+}
+',
+                    branch: 'main'
+            }
+        }
+        stage('Run Script') {
+            steps {
+                sh 'chmod +x script.sh'
+                sh './script.sh'
+            }
+        }
+    }
+}
+
+----------------------------------------------------------------
+# Cleanup (if needed)
+sudo rm jenkins.war
+sudo rm -rf ~/.jenkins
+----------------------------------------------------------------
+
+================================================================
+END OF FILE
+================================================================
