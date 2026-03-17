@@ -3,10 +3,10 @@ pipeline {
 
     stages {
 
-        stage('Clone') {
+        stage('Clone Repository') {
             steps {
-                git url: 'https://github.com/asbeelagi05/jenki.git',
-                    branch: 'main'
+                git branch: 'main',
+                    url: 'https://github.com/asbeelagi05/jenki.git'
             }
         }
 
